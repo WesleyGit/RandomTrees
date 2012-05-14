@@ -29,11 +29,18 @@ public class Main {
 			}
 			for (int j = 0; j < BOOLEANS; j++)
 				bools[i][j] = Boolean.parseBoolean(attscanner.next());
-			ads[i] = attscanner.next() == "ad";
-			System.out.println(i);
+//			System.out.println(attscanner.next());
+			ads[i] = attscanner.next().equals("ad.");
+//			System.out.println(ads[i]);
+//			System.out.println(i);
 		}
 		System.out.println("File reading done. Read dataset succesfully. Took "+((new Date()).getTime()-starttime)+"ms.");
+		starttime = (new Date()).getTime();
+		System.out.println("Planted seeds..");
 		Forest forest = new Forest(new Dataset(reals, bools, ads));
+		forest.growTrees(1, 100);
+		System.out.println("Trees fully grown! Took "+((new Date()).getTime()-starttime)+"ms.");
+		
 	}
 	
 

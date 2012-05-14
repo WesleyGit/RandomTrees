@@ -26,4 +26,14 @@ public class Dataset {
 	public int instances() {
 		return doubles.length;
 	}
+
+	public int attributes() {
+		return doubles.length + booleans.length;
+	}
+
+	public Integer realcount() {
+		if (instances() > 0)
+			return doubles[0].length;
+		return 0;
+	}
 }
