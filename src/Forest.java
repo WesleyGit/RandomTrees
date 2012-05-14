@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class Forest {
 
-	public Instance[] dataset;
+	public Dataset dataset;
 	public Tree[] forest;
 
-	public Forest(Instance[] dataset) {
+	public Forest(Dataset dataset) {
 		this.dataset = dataset;
 	}
 
@@ -18,22 +18,18 @@ public class Forest {
 		forest = new Tree[treecount];
 		Random r = new Random();
 		for (int i = 0; i < treecount; i++) {
-			int[] samples = new int[Main.INSTANCES];
-			for (int j = 0; j < Main.INSTANCES; j++) {
-				samples[j] = r.nextInt(dataset.length);
+			int[] samples = new int[dataset.instances()];
+			for (int j = 0; j < dataset.instances(); j++) {
+				samples[j] = r.nextInt(dataset.instances());
 			}
-			int[] attributes = new int[m];
-			for (int j = 0; j < Main.ATTRIBUTES; j++) {
-				
-			}
-			forest[i] = new Tree(dataset, samples, attributes);
+			forest[i] = new Tree(dataset, samples, m);
 		}
 	}
 	
-	public boolean classify(Instance inst) {
+	public boolean classify(double[] doubles, boolean[] booleans) {
 		int upvotes = 0;
 		for (int i = 0; i < forest.length; i++)
-			if (forest[i].classify(inst))
+			if (forest[i].classify(doubles, booleans))
 				upvotes++;
 		return upvotes >= forest.length/2.0;
 	}

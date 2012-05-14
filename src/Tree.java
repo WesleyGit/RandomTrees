@@ -1,11 +1,17 @@
 
 public class Tree {
 
-	public Tree(Instance[] dataset, int[] samples, int[] attributes) {
-		// TODO Auto-generated constructor stub
+	private Dataset dataset;
+	private int[] samples;
+	private int m;
+	
+	public Tree(Dataset dataset, int[] samples, int m) {
+		this.dataset = dataset;
+		this.samples = samples;
+		this.m = m;
 	}
 
-	public boolean classify(Instance inst) {
+	public boolean classify(double[] doubles, boolean[] booleans) {
 		// TODO Auto-generated method stub
 		return false;
 	}
