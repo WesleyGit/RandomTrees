@@ -1,9 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Date;
 import java.util.Random;
-import java.util.Scanner;
-
 
 public class Forest {
 
@@ -14,7 +9,7 @@ public class Forest {
 		this.dataset = dataset;
 	}
 
-	public void growTrees(int treecount, int m) {
+	public void growTrees(int treecount, int m, int depth) {
 		forest = new Tree[treecount];
 		Random r = new Random();
 		for (int i = 0; i < treecount; i++) {
@@ -22,7 +17,7 @@ public class Forest {
 			for (int j = 0; j < dataset.instances(); j++) {
 				samples[j] = r.nextInt(dataset.instances());
 			}
-			forest[i] = new Tree(dataset, samples, m);
+			forest[i] = new Tree(dataset, samples, m, depth);
 		}
 	}
 	

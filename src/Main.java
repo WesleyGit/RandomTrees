@@ -11,6 +11,7 @@ public class Main {
 	public static final int BOOLEANS = 1558-REALS;
 	
 	public static void main(String[] args) throws FileNotFoundException {
+		System.out.println("Reading file..");
 		FileReader ifile = new FileReader(datasetfile);
 		Scanner scanner = new Scanner(ifile);
 		long starttime = (new Date()).getTime();
@@ -27,20 +28,29 @@ public class Main {
 				else
 					reals[i][j] = -1;
 			}
-			for (int j = 0; j < BOOLEANS; j++)
-				bools[i][j] = Boolean.parseBoolean(attscanner.next());
-//			System.out.println(attscanner.next());
+			for (int j = 0; j < BOOLEANS; j++) {
+				bools[i][j] = attscanner.next().equals("1");
+			}
 			ads[i] = attscanner.next().equals("ad.");
-//			System.out.println(ads[i]);
-//			System.out.println(i);
 		}
 		System.out.println("File reading done. Read dataset succesfully. Took "+((new Date()).getTime()-starttime)+"ms.");
 		starttime = (new Date()).getTime();
 		System.out.println("Planted seeds..");
-		Forest forest = new Forest(new Dataset(reals, bools, ads));
-		forest.growTrees(1, 100);
+		Dataset dataset = new Dataset(reals, bools, ads);
+		Forest forest = new Forest(dataset);
+		forest.growTrees(1, 500, 100);
 		System.out.println("Trees fully grown! Took "+((new Date()).getTime()-starttime)+"ms.");
-		
+		starttime = (new Date()).getTime();
+		System.out.println("Classifying training set..");
+		int correct = 0;
+		for (int i = 0; i < dataset.instances(); i++) {
+			boolean res = forest.classify(dataset.getDoubles()[i], dataset.getBooleans()[i]);
+			if (res == dataset.getAds()[i])
+				correct++;
+		}
+		double percent = 100*(double)correct/dataset.instances();
+		System.out.print("Classification done! "+(Math.round(percent*1000)/1000.0)+"% correct");
+		System.out.println(" ("+correct+"/"+dataset.instances()+"). Took "+((new Date()).getTime()-starttime)+"ms.");
 	}
 	
 
